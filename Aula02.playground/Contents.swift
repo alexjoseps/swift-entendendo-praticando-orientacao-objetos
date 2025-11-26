@@ -106,3 +106,57 @@ func exibeSaldo(_ conta: Conta) {
 
 exibeSaldo(contaCorrenteAlex)
 exibeSaldo(contaPoupancaAlex)
+
+// Desafio - Registrando o empregado e gerente
+
+class Empregado {
+    var nome: String
+    var salario: Double
+    
+    init(nome: String, salario: Double) {
+        self.nome = nome
+        self.salario = salario
+    }
+}
+
+class Gerente: Empregado {
+    var departamento: String
+    
+    init(nome: String, salario: Double, departamento: String) {
+        self.departamento = departamento
+        super.init(nome: nome, salario: salario)
+    }
+}
+
+var alexEmpregado = Empregado(nome: "Alex", salario: 5100.90)
+var alexGerente = Gerente(nome: "Alex Gerente", salario: 25000, departamento: "TI")
+
+// Desafio - Calculando o salário do vendedor
+
+class Vendedor: Empregado {
+    func percentualComissao(_ quantidadeVendas: Int) -> Double {
+        var valorPorVenda = 50.0
+        var valorComissao = Double(quantidadeVendas) * (valorPorVenda * 0.10)
+
+        return self.salario + valorComissao
+    }
+}
+
+var alexVendedor = Vendedor(nome: "Alex Vendedor", salario: 1500)
+print(alexVendedor.percentualComissao(10))
+
+// Desafio - Verificando tipos
+
+func verificaTipo(_ empregado: Empregado) {
+    if let gerente = empregado as? Gerente {
+        print("O(a) empregado(a) \(gerente.nome) é um(a) gerente e está no departamento \(gerente.departamento).")
+    } else if let vendedor = empregado as? Vendedor {
+        print("O(a) empregado(a) \(vendedor.nome) é um(a) vendedor.")
+    } else {
+        print("\(empregado.nome) é um empregado.")
+    }
+}
+
+verificaTipo(alexGerente)
+verificaTipo(alexVendedor)
+verificaTipo(alexEmpregado)
