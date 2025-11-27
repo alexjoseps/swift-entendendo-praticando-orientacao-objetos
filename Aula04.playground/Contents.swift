@@ -155,13 +155,82 @@ enum Dinheiro: String {
 
 print(Dinheiro.virtal.rawValue)
 
-enum Moeda: Int {
+enum Moedas: Int {
     case um = 1
     case cinco = 5
     case dez = 10
     case vinteCinco = 25
 }
 
-print(Moeda.dez.rawValue)
+print(Moedas.dez.rawValue)
 
-// Desafios - 
+// Desafio - Área
+
+protocol Area {
+    var area: Double { get }
+}
+
+struct Quadrado: Area {
+    var lado: Double
+    var area: Double {
+        return self.lado * self.lado
+    }
+}
+
+struct Triangulo: Area {
+    var base: Double
+    var altura: Double
+    var area: Double {
+        return (self.base * self.altura) / 2
+    }
+}
+
+var quadrado = Quadrado(lado: 5)
+print(quadrado.area)
+
+var triangulo = Triangulo(base: 10, altura: 15)
+print(triangulo.area)
+
+// Desafio - Moedas
+
+enum Moeda: Int {
+  case UmCentavo = 1
+  case CincoCentavos = 5
+  case DezCentavos = 10
+  case VinteCincoCentavos = 25
+  case CinquentaCentavos = 50
+}
+
+let moedas: [Moeda] = [.CincoCentavos, .UmCentavo, .CincoCentavos, .VinteCincoCentavos, .CincoCentavos, .DezCentavos]
+
+func somaMoedas(_ moedas: [Moeda]) -> Int {
+    var total = 0
+    for moeda in moedas {
+        total += moeda.rawValue
+    }
+    
+    return total
+}
+
+print(somaMoedas(moedas))
+
+// Opcionais usam enumeração
+
+var numeroQualquer: Int?
+numeroQualquer = 9
+
+switch numeroQualquer {
+case .none: print("Opcional sem valor")
+case .some(let numero): print("Opcional com valor \(numero)!")
+}
+
+
+// Generics
+// É declarado com o uso de T
+
+func soma<T: Numeric>(a: T, b: T) -> T {
+    return a + b
+}
+
+print(soma(a: 1, b: 2))
+print(soma(a: 0.5, b: 9.5))
